@@ -11,14 +11,14 @@ export default function SearchForm({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="m-12 md:m-0 p-4 md:flex gap-2 bg-white shadow-md rounded-lg">
+    <form onSubmit={handleSubmit} className="mx-12 mb-2 md:m-0 p-4 md:flex gap-2 bg-white shadow-md rounded-lg">
       <div className="mb-2">
         <label className="block text-gray-700">From:</label>
         <input
           type="text"
           value={origin}
           onChange={(e) => setOrigin(e.target.value)}
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md text-black"
           required
         />
       </div>
@@ -29,7 +29,7 @@ export default function SearchForm({ onSearch }) {
           type="text"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md text-black"
           required
         />
       </div>
@@ -40,7 +40,7 @@ export default function SearchForm({ onSearch }) {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md text-black"
           required
         />
       </div>

@@ -19,18 +19,18 @@ export default function FlightResults({ flights }) {
     return <p className="text-gray-500">No flights found.</p>;
   }
 
-  // Funcție pentru a extrage valoarea numerică din prețul formatat
+ 
   const extractNumericPrice = (formattedPrice) => {
     if (!formattedPrice) return 0;
-    let numericString = formattedPrice.replace(/[^0-9.,]/g, ""); // Elimină orice caracter non-numeric
+    let numericString = formattedPrice.replace(/[^0-9.,]/g, ""); 
   
-    // Elimină separatorii de mii
+   
     numericString = numericString.replace(/,/g, "");
   
     return parseFloat(numericString);
   };
 
-  // Funcție pentru a sorta zborurile în funcție de preț sau durată
+  
   const sortedFlights = [...flights].sort((a, b) => {
     if (sortBy === "price") {
       const priceA = extractNumericPrice(a.price.formatted);
@@ -41,13 +41,13 @@ export default function FlightResults({ flights }) {
       const durationB = b.legs[0].durationInMinutes;
       return sortOrder === "asc" ? durationA - durationB : durationB - durationA;
     }
-    return 0; // Nu se sortează dacă sortBy este null
+    return 0; 
   });
 
-  // Funcție pentru a schimba direcția de sortare
+
   const toggleSortOrder = (criteria) => {
     if (sortBy === criteria) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc"); // Schimbă direcția
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc"); 
     } else {
       setSortBy(criteria); // Setează criteriul de sortare
       setSortOrder("asc"); // Resetează direcția la crescător
@@ -55,13 +55,13 @@ export default function FlightResults({ flights }) {
   };
 
   return (
-    <div className="mt-4">
-      <div className="flex gap-2 mb-4 m-4 md:md-0">
-        {/* Buton pentru sortare după preț */}
+    <div className="mt-4 ">
+      <div className="flex gap-2 mb-4 m-4  md:md-0">
+      
         <button
           onClick={() => toggleSortOrder("price")}
-          className={`px-4 py-2 rounded flex items-center gap-1 ${
-            sortBy === "price" ? "bg-blue-500 text-white" : "bg-gray-200"
+          className={`px-2 py-2 rounded flex items-center gap-1 ${
+            sortBy === "price" ? "bg-blue-500 text-white" : "bg-gray-800"
           }`}
         >
           Sort by Price
@@ -70,11 +70,11 @@ export default function FlightResults({ flights }) {
           )}
         </button>
 
-        {/* Buton pentru sortare după durată */}
+  
         <button
           onClick={() => toggleSortOrder("duration")}
-          className={`px-4 py-2 rounded flex items-center gap-1 ${
-            sortBy === "duration" ? "bg-blue-500 text-white" : "bg-gray-200"
+          className={`px-2 py-2 rounded flex items-center gap-1 ${
+            sortBy === "duration" ? "bg-blue-500 text-white" : "bg-gray-800"
           }`}
         >
           Sort by Duration
@@ -83,11 +83,11 @@ export default function FlightResults({ flights }) {
           )}
         </button>
 
-        {/* Buton pentru a șterge filtrele */}
+      
         <button
           onClick={() => setSortBy(null)}
-          className={`px-4 py-2 rounded ${
-            sortBy === null ? "bg-blue-500 text-white" : "bg-gray-200"
+          className={`px-2 py-2 rounded ${
+            sortBy === null ? "bg-blue-500 text-white" : "bg-gray-800"
           }`}
         >
           Clear
@@ -95,23 +95,22 @@ export default function FlightResults({ flights }) {
       </div>
 
       {sortedFlights.map((itinerary, index) => {
-        // Verifică dacă există date valide în itinerary
+       
         if (!itinerary.legs || !itinerary.legs[0] || !itinerary.price) {
-          return null; // Ignoră zborurile cu date incomplete
+          return null; 
         }
 
         const firstLeg = itinerary.legs[0];
-        console.log(firstLeg); // Verifică structura unui leg
+        console.log(firstLeg); 
 
-        // Extrage numele companiei aeriene în funcție de operationType
         let airlineNames = "Unknown Airline";
         if (firstLeg.carriers?.operationType === "fully_operated") {
-          // Folosește marketing dacă operationType este fully_operated
+          
           airlineNames = firstLeg.carriers?.marketing
             ?.map((carrier) => carrier.name)
             ?.join(", ");
         } else if (firstLeg.carriers?.operationType === "not_operated") {
-          // Folosește operating dacă operationType este not_operated
+          
           airlineNames = firstLeg.carriers?.operating
             ?.map((carrier) => carrier.name)
             ?.join(", ");
@@ -134,7 +133,7 @@ export default function FlightResults({ flights }) {
         }
 
         return (
-          <div key={index} className=" m-4 md:p-4 border-b flex gap-2 ">
+          <div key={index} className=" m-4  md:p-4 border-b flex gap-2 flex flex-col md:flex-row ">
             <p>
               <strong>Airline:</strong> {airlineNames}
             </p>
